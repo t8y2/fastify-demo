@@ -3,13 +3,13 @@ name: Sync and Run Script on Server
 on:
   push:
     branches:
-      - custom
+      - main
 
 jobs:
   sync-and-run-script:
     runs-on: [ self-hosted, Linux, X64 ]
     env:
-      APP_DIR: /data/tianyu/app/backend/fastify-demo
+      APP_DIR: /tty/app/backend/fastify-demo
 
     steps:
       - name: 拉取代码到自建 runner
