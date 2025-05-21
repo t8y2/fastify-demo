@@ -9,6 +9,8 @@ module.exports = fp(async function (fastify, opts) {
     required: ["PORT", "ENABLE_MONGO", "ENABLE_REDIS"],
     properties: {
       PORT: {type: "number", default: 3000},
+      JWT_SECRET: {type: "string", nullable: true},
+
       ENABLE_CORS:  {type: "boolean", default: true},
       ENABLE_COMPRESS:  {type: "boolean", default: true},
       ENABLE_MONGO: {type: "boolean", default: false},
