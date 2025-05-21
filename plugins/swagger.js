@@ -41,5 +41,5 @@ module.exports = fp(async function (fastify, opts) {
     exposeRoute: true,
   });
 
-  fastify.log.info('🚀 Swagger 文档已启动，访问地址：http://localhost:3000/docs');
+  fastify.log.info(`🚀 Swagger 文档已启动，访问地址：http://localhost:${process.env.PORT}/docs`);
 });
