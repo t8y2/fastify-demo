@@ -36,7 +36,7 @@ jobs:
 
       - name: 执行部署脚本
         run: |
-          bash "$APP_DIR/.github/workflows/setup.sh"
+          bash "$APP_DIR/.github/workflows/setup.sh" "$APP_DIR"
 
   notify:
     needs: [ sync-and-run-script ]
