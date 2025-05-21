@@ -3,7 +3,7 @@ function successResponse(data, msg = 'success', code = 0) {
   return {
     code,
     msg,
-    data
+    data,
   };
 }
 
@@ -11,7 +11,7 @@ function errorResponse(error, msg = 'error', code = 1) {
   return {
     code,
     msg: `${msg}: ${error.message}`,
-    data: null
+    data: null,
   };
 }
 

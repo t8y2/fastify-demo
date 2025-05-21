@@ -1,5 +1,5 @@
-'use strict'
-const fp = require('fastify-plugin')
+'use strict';
+const fp = require('fastify-plugin');
 
 module.exports = fp(async function (fastify, opts) {
   if (!fastify.config.ENABLE_REDIS) {
@@ -7,13 +7,13 @@ module.exports = fp(async function (fastify, opts) {
     return;
   }
 
-  const { REDIS_HOST, REDIS_PORT, REDIS_PASSWORD } = fastify.config
-  const redisUrl = `redis://${REDIS_PASSWORD ? ':' + REDIS_PASSWORD + '@' : ''}${REDIS_HOST}:${REDIS_PORT}`
+  const { REDIS_HOST, REDIS_PORT, REDIS_PASSWORD } = fastify.config;
+  const redisUrl = `redis://${REDIS_PASSWORD ? ':' + REDIS_PASSWORD + '@' : ''}${REDIS_HOST}:${REDIS_PORT}`;
 
   await fastify.register(require('@fastify/redis'), {
     url: redisUrl,
-    closeClient: true
-  })
+    closeClient: true,
+  });
 
   fastify.log.info('🔥 Redis 已成功连接，速度与激情，内存飞驰！🚗💨');
-})
+});

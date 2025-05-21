@@ -9,8 +9,8 @@ module.exports = fp(async function (fastify, opts) {
   }
 
   fastify.register(require('@fastify/compress'), {
-    global: true,       // 是否全局开启压缩（默认 true）
-    threshold: 1024,    // 小于 1KB 的响应不压缩
+    global: true, // 是否全局开启压缩（默认 true）
+    threshold: 1024, // 小于 1KB 的响应不压缩
     // brotliOptions: {...} // Brotli 压缩参数，可选
   });
   fastify.log.info('🎉 COMPRESS压缩已启动，响应体秒变轻量级！');

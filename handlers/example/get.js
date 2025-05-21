@@ -1,8 +1,7 @@
 // handlers/example/get.js
 'use strict';
 
-
-const {successResponse, errorResponse} = require("../../utils/response");
+const { successResponse, errorResponse } = require('../../utils/response');
 const getExampleHandler = async function (request, reply) {
   try {
     const users = await this.mongo.db.collection('model').find({}, {}).toArray();
