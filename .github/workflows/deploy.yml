@@ -1,0 +1,61 @@
+name: Sync and Run Script on Server
+
+on:
+  push:
+    branches:
+      - custom
+
+jobs:
+  sync-and-run-script:
+    runs-on: [ self-hosted, Linux, X64 ]
+    env:
+      APP_DIR: /data/tianyu/app/backend/fastify-demo
+
+    steps:
+      - name: 拉取代码到自建 runner
+        uses: actions/checkout@v3
+
+      - name: 删除原始目录
+        run: rm -rf "$APP_DIR"
+
+      - name: 创建目标目录（如不存在）
+        run: mkdir -p "$APP_DIR"
+
+      - name: 同步代码到目标目录
+        run: rsync -avz --delete ./ "$APP_DIR"
+
+      - name: 安装 Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '21'
+
+      - name: 安装依赖
+        run: |
+          cd "$APP_DIR"
+          npm install
+
+      - name: 执行部署脚本
+        run: |
+          bash "$APP_DIR/.github/workflows/setup.sh"
+
+  notify:
+    needs: [ sync-and-run-script ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: 发送成功通知
+        if: ${{ needs.sync-and-run-script.result == 'success' }}
+        uses: jefferyjob/notify-actions@v1
+        with:
+          NOTICE_TYPE: 'feishu'
+          MSG_TYPE: 'card'
+          WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK }}
+          STATUS: "true"
+
+      - name: 发送失败通知
+        if: ${{ needs.sync-and-run-script.result != 'success' }}
+        uses: jefferyjob/notify-actions@v1
+        with:
+          NOTICE_TYPE: 'feishu'
+          MSG_TYPE: 'card'
+          WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK }}
+          STATUS: "false"
