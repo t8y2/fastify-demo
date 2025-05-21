@@ -15,6 +15,9 @@ module.exports = fp(async function (fastify, opts) {
       MONGO_PORT: { type: 'string', default: '27017' }, // MongoDB 默认端口
       MONGO_DB: { type: 'string' },
       MONGO_AUTH_DB: { type: 'string', default: 'admin' }, // 默认认证数据库
+      REDIS_HOST: { type: 'string', default: '127.0.0.1'},
+      REDIS_PORT: { type: 'string', default: '6379' },
+      REDIS_PASSWORD: { type: 'string', default: '' }
     },
   };
 
@@ -23,7 +26,7 @@ module.exports = fp(async function (fastify, opts) {
     confKey: 'config', // 环境变量存储在 fastify.config 中
     schema: schema,
     dotenv: {
-      path: `.env.${process.env.NODE_ENV || 'development'}`, // 动态加载 .env 文件
+      path: ['.env', process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : null].filter(Boolean),
       debug: true, // 开启调试日志，便于排查问题
       override: true, // 允许覆盖已定义的环境变量
     },
