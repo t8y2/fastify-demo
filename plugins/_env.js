@@ -10,6 +10,7 @@ module.exports = fp(async function (fastify, opts) {
     properties: {
       PORT: {type: "number", default: 3000},
       ENABLE_CORS:  {type: "boolean", default: true},
+      ENABLE_COMPRESS:  {type: "boolean", default: true},
       ENABLE_MONGO: {type: "boolean", default: false},
       ENABLE_REDIS: {type: "boolean", default: false},
 

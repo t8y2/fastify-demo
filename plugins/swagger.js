@@ -40,4 +40,6 @@ module.exports = fp(async function (fastify, opts) {
     // 是否暴露 swagger-ui 路由，设置为 true 使其可访问
     exposeRoute: true
   })
+
+  fastify.log.info('🚀 Swagger 文档已启动，访问地址：http://localhost:3000/docs');
 })

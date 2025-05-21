@@ -1,6 +1,6 @@
 const getExampleHandler = async (request, reply) => {
   console.log(process.env.PORT)
-  reply.success({ hello: `Hello,` },  '数据获取成功！');
+  reply.serviceUnavailable('Query parameter "name" is required');
 }
 
 module.exports = {  getExampleHandler };
