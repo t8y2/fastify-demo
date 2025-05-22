@@ -3,7 +3,7 @@ name: Sync and Run Script on Server
 on:
   push:
     branches:
-      - main
+      - custom
 
 jobs:
   sync-and-run-script:
@@ -49,7 +49,7 @@ jobs:
           NOTICE_TYPE: 'feishu'
           MSG_TYPE: 'card'
           WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK }}
-          STATUS: "true"
+          STATUS: 'true'
 
       - name: 发送失败通知
         if: ${{ needs.sync-and-run-script.result != 'success' }}
@@ -58,4 +58,4 @@ jobs:
           NOTICE_TYPE: 'feishu'
           MSG_TYPE: 'card'
           WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK }}
-          STATUS: "false"
+          STATUS: 'false'
